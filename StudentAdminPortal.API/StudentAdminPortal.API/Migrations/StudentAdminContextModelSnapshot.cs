@@ -22,18 +22,16 @@ namespace StudentAdminPortal.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("StudentAdminPortal.API.DataModels.Adress", b =>
+            modelBuilder.Entity("StudentAdminPortal.API.DataModels.Address", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("PhysicalAdress")
-                        .IsRequired()
+                    b.Property<string>("PhysicalAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalAdress")
-                        .IsRequired()
+                    b.Property<string>("PostalAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("StudentId")
@@ -44,7 +42,7 @@ namespace StudentAdminPortal.API.Migrations
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("Adresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("StudentAdminPortal.API.DataModels.Gender", b =>
@@ -54,12 +52,11 @@ namespace StudentAdminPortal.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genders");
+                    b.ToTable("Gender");
                 });
 
             modelBuilder.Entity("StudentAdminPortal.API.DataModels.Student", b =>
@@ -68,43 +65,39 @@ namespace StudentAdminPortal.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FitstName")
-                        .IsRequired()
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("GenderId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Mobile")
+                    b.Property<long?>("Mobile")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ProfileImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GenderId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("StudentAdminPortal.API.DataModels.Adress", b =>
+            modelBuilder.Entity("StudentAdminPortal.API.DataModels.Address", b =>
                 {
                     b.HasOne("StudentAdminPortal.API.DataModels.Student", null)
-                        .WithOne("Adress")
-                        .HasForeignKey("StudentAdminPortal.API.DataModels.Adress", "StudentId")
+                        .WithOne("Address")
+                        .HasForeignKey("StudentAdminPortal.API.DataModels.Address", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -122,7 +115,7 @@ namespace StudentAdminPortal.API.Migrations
 
             modelBuilder.Entity("StudentAdminPortal.API.DataModels.Student", b =>
                 {
-                    b.Navigation("Adress")
+                    b.Navigation("Address")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

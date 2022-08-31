@@ -8,9 +8,9 @@ namespace StudentAdminPortal.API.DataModels
         {
         }
 
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Gender> Genders { get; set; }
-        public DbSet<Adress> Adresses { get; set; }
+        public DbSet<Student> Student { get; set; }
+        public DbSet<Gender> Gender { get; set; }
+        public DbSet<Address> Address { get; set; }
         
     }
 }
