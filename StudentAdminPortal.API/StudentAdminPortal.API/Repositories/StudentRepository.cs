@@ -4,9 +4,16 @@ namespace StudentAdminPortal.API.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
+        private readonly StudentAdminContext _context;
+
+        public StudentRepository(StudentAdminContext context)
+        {
+            _context = context;
+        }
+
         public List<Student> GetStudents()
         {
-            throw new NotImplementedException();
+            return _context.Student.ToList();
         }
     }
 }
