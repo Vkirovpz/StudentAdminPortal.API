@@ -5,8 +5,14 @@ namespace StudentAdminPortal.API.Controllers
 {
     public class StudentsController : Controller
     {
-     
-        public IActionResult Index()
+        private readonly IStudentRepository _studentRepository;
+
+        public StudentsController(IStudentRepository studentRepository)
+        {
+            _studentRepository = studentRepository;
+        }
+
+        public IActionResult GetAllStudents ()
         {
             return View();
         }
