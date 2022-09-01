@@ -19,9 +19,14 @@ namespace StudentAdminPortal.API.Repositories
         public async Task<List<GetStudentDto>> GetStudents()
         {
             var students =  await _context.Student
-                .Select(s => _mapper.Map<GetStudentDto>(s)).ToListAsync();
+                .Include(s => s.Gender)
+                .Include(s => s.Address)
+                .ToListAsync();
 
-               return students;
+            var studentsFullInfo = students
+                .Select(s => _mapper.Map<GetStudentDto>(s)).ToList();
+
+               return studentsFullInfo;
         }
     }
 }
