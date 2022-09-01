@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.API.DataModels;
 using StudentAdminPortal.API.DomainModels;
 
@@ -15,10 +16,11 @@ namespace StudentAdminPortal.API.Repositories
             _mapper = mapper;
         }
 
-        public List<GetStudentDto> GetStudents()
+        public async Task<List<GetStudentDto>> GetStudents()
         {
-            var students =  _context.Student
-                .Select(s => _mapper.Map<GetStudentDto>(s)).ToList();
+            var students =  await _context.Student
+                .Select(s => _mapper.Map<GetStudentDto>(s)).ToListAsync();
+
                return students;
         }
     }
