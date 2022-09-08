@@ -5,6 +5,7 @@ namespace StudentAdminPortal.API.Repositories
 {
     public interface IStudentRepository
     {
-        Task<List<GetStudentDto>> GetStudents();
+        Task<List<GetStudentDto>> GetStudentsAsync();
+        Task<GetStudentDto> GetStudentAsync(Guid studentId);
     }
 }

@@ -16,7 +16,19 @@ namespace StudentAdminPortal.API.Repositories
             _mapper = mapper;
         }
 
-        public async Task<List<GetStudentDto>> GetStudents()
+        public async Task<GetStudentDto> GetStudentAsync(Guid studentId)
+        {
+            var student = await _context.Student
+                .Include(s => s.Gender)
+                .Include(s => s.Address)
+                .FirstOrDefaultAsync(s => s.Id == studentId);
+
+            var studetToReturn = _mapper.Map<GetStudentDto>(student);
+
+            return studetToReturn;
+        }
+
+        public async Task<List<GetStudentDto>> GetStudentsAsync()
         {
             var students =  await _context.Student
                 .Include(s => s.Gender)
