@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 
@@ -8,22 +9,24 @@ namespace StudentAdminPortal.API.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IMapper _mapper;
 
-        public StudentsController(IStudentRepository studentRepository)
+        public StudentsController(IStudentRepository studentRepository, IMapper mapper)
         {
             _studentRepository = studentRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Route("[controller]")]
-        public async Task<IActionResult> GetAllStudentsAsync ()
+        public async Task<IActionResult> GetAllStudentsAsync()
         {
             return Ok(await _studentRepository.GetStudentsAsync());
         }
 
         [HttpGet]
         [Route("[controller]/{studentId:guid}")]
-        public async Task<IActionResult> GetStudentAsync([FromRoute]Guid studentId)
+        public async Task<IActionResult> GetStudentAsync([FromRoute] Guid studentId)
         {
             var student = await _studentRepository.GetStudentAsync(studentId);
 
@@ -41,12 +44,14 @@ namespace StudentAdminPortal.API.Controllers
         {
             if (await _studentRepository.Exist(studentId))
             {
-                _studentRepository
+                var updatedStudent = await _studentRepository.UpdateStudent(studentId, _mapper.Map<DataModels.Student>(request));
+
+                if (updatedStudent != null)
+                {
+                    return Ok(_mapper.Map<GetStudentDto>(updatedStudent));
+                }
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
     }
 }
