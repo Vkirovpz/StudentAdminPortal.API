@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 
 namespace StudentAdminPortal.API.Controllers
@@ -36,9 +37,16 @@ namespace StudentAdminPortal.API.Controllers
 
         [HttpPut]
         [Route("[controller]/{studentId:guid}")]
-        public async Task<IActionResult> UpdateStudentAsync([FromRoute] Guid studentId, [FromBody] UpradeStudentRequest request)
+        public async Task<IActionResult> UpdateStudentAsync([FromRoute] Guid studentId, [FromBody] UpdateStudentRequest request)
         {
-
+            if (await _studentRepository.Exist(studentId))
+            {
+                _studentRepository
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

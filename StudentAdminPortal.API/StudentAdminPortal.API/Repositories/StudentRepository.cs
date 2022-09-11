@@ -47,5 +47,10 @@ namespace StudentAdminPortal.API.Repositories
                 .Select(g => _mapper.Map<GetGenderDto>(g))
                 .ToListAsync();
         }
+
+        public async Task<bool> Exist(Guid studentId)
+        {
+            return await _context.Student.AnyAsync(s => s.Id == studentId);
+        }
     }
 }
