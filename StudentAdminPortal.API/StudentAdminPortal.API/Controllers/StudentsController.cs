@@ -33,5 +33,12 @@ namespace StudentAdminPortal.API.Controllers
 
             return Ok(student);
         }
+
+        [HttpPut]
+        [Route("[controller]/{studentId:guid}")]
+        public async Task<IActionResult> UpdateStudentAsync([FromRoute] Guid studentId, [FromBody] UpradeStudentRequest request)
+        {
+
+        }
     }
 }
