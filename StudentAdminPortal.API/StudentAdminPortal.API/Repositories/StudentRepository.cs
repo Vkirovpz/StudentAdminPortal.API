@@ -40,5 +40,12 @@ namespace StudentAdminPortal.API.Repositories
 
                return studentsFullInfo;
         }
+
+        public async Task<List<GetGenderDto>> GetGendersAsync()
+        {
+            return await _context.Gender
+                .Select(g => _mapper.Map<GetGenderDto>(g))
+                .ToListAsync();
+        }
     }
 }

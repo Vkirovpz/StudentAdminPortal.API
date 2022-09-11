@@ -9,6 +9,7 @@ namespace StudentAdminPortal.API
         public AutoMapperProfile()
         {
             CreateMap<Student, GetStudentDto>();
+            CreateMap<Gender, GetGenderDto>();
         }
         
     }
