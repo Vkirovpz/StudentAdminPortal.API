@@ -20,6 +20,6 @@
 
         public Gender Gender { get; set; }
 
-        public Address Address { get; set; } 
+        public Address? Address { get; set; } 
     }
 }
